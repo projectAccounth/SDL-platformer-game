@@ -1,6 +1,6 @@
 #include "include/main.h"
 
-int WinMain(int argv, char** argc) {
+int main(int argv, char** argc) {
 	Main cmain;
 
 	bool isRunning = true;
@@ -12,6 +12,7 @@ int WinMain(int argv, char** argc) {
 
 	while (isRunning) {
 		isRunning = cmain.processEvent();
+		cmain.debugLoop();
 		cmain.renderFPSText();
 		cmain.gameGrav();
 		cmain.update();
