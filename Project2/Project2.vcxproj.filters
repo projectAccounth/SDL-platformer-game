@@ -305,4 +305,42 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\seguisli.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\seguisbi.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\seguisb.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\seguili.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\seguibli.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\seguibl.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\segoeuiz.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\segoeuisl.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\segoeuii.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\segoeuib.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\segoeui.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="res\fonts\segoeuil.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
 </Project>

@@ -74,7 +74,7 @@
     <LibraryPath>C:\Users\PC\source\repos\Project2\dependencies\SDL2-2.0.22\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>C:\Users\PC\source\repos\Project2\dependencies\SDL2-2.0.22\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\PC\source\repos\Project1\Project2\dependencies\SDL2-2.0.22\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -239,6 +239,20 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\segoeui.ttf" />
+    <Font Include="res\fonts\segoeuib.ttf" />
+    <Font Include="res\fonts\segoeuii.ttf" />
+    <Font Include="res\fonts\segoeuil.ttf" />
+    <Font Include="res\fonts\segoeuisl.ttf" />
+    <Font Include="res\fonts\segoeuiz.ttf" />
+    <Font Include="res\fonts\seguibl.ttf" />
+    <Font Include="res\fonts\seguibli.ttf" />
+    <Font Include="res\fonts\seguili.ttf" />
+    <Font Include="res\fonts\seguisb.ttf" />
+    <Font Include="res\fonts\seguisbi.ttf" />
+    <Font Include="res\fonts\seguisli.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

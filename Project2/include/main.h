@@ -7,41 +7,73 @@ typedef struct {
 	SDL_Texture* sprite;
 } Player;
 
+//vars
+SDL_Window* mainwindow = NULL;
+SDL_Renderer* renderer = NULL;
+Player* player = new Player{ 5, 6, NULL };
+
+const int xCap = 20;
+
+const int GRAVITY = 1;
+
+int speed_x = 0, speed_y = 0;
+
+int fullscreen = 0;
+// end comment
+
 // main class of this game
 class Main {
 private:
-	SDL_Window* mainwindow = NULL;
-	SDL_Renderer* renderer = NULL;
-	Player* player = new Player { 5, 6, NULL };
-
-	const int xCap = 20;
-
-	const int GRAVITY = 1;
-
-	int speed_x = 0, speed_y = 0;
+	SDL_Color fontColor = { 255,255,255 };
 public:
-	
 	// window creation function
 	void createWindow() {
 
 		SDL_Init(SDL_INIT_EVERYTHING);
 		// Assigning a value to the window
 		mainwindow = SDL_CreateWindow("Main", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
+
+		SDL_SetWindowFullscreen(mainwindow, 0);
 		// defining the renderer
 		renderer = SDL_CreateRenderer(mainwindow, -1, SDL_RENDERER_PRESENTVSYNC);
 		// give the window a color
 		SDL_SetRenderDrawColor(renderer, 60, 80, 80, 255);
 
-		SDL_Texture* texture = NULL;
-
 		player->x = WIDTH / 2;
 		player->y = HEIGHT / 2;
 
 		speed_x = 0, speed_y = 0;
+
+		fullscreen = 0;
 	}
 
-	SDL_Texture* createPlayer() {
-		// loading image
+	SDL_Texture *createFPSText() {
+		TTF_Init();
+
+		TTF_Font* SegoeUI = TTF_OpenFont("res/fonts/segoeui.ttf", 25);
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(SegoeUI, "lololol", fontColor);
+
+		SDL_Texture* FPSCounter = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+		SDL_FreeSurface(surfaceMessage);
+
+		return FPSCounter;
+	}
+
+	void renderFPSText() {
+		SDL_Texture* FPSCounter = createFPSText();
+		SDL_Rect Message_rect; //create a rect
+		Message_rect.x = 0;  //controls the rect's x coordinate 
+		Message_rect.y = 0; // controls the rect's y coordinte
+		Message_rect.w = 100; // controls the width of the rect
+		Message_rect.h = 100;
+
+		SDL_RenderCopy(renderer, FPSCounter, NULL, &Message_rect);
+
+	}
+
+	SDL_Texture* createPlayer() { 
+		// loading image 
 		SDL_Surface* playerimg = IMG_Load("res/player.png");
 
 		if (playerimg) {
@@ -59,23 +91,45 @@ public:
 	void controls() {
 		const Uint8* keyState = SDL_GetKeyboardState(NULL);
 
-		if (keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_A]) {
-			speed_x -= 12;
+		if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_LEFT]) {
+				speed_x -= 3;
+				if (speed_x <= -xCap)
+					speed_x = -xCap;
 		}
 		if (keyState[SDL_SCANCODE_RIGHT] || keyState[SDL_SCANCODE_D]) {
-			speed_x += 12;
+				speed_x += 3;
+				if (speed_x >= xCap)
+					speed_x = xCap;
 		}
 		if (keyState[SDL_SCANCODE_UP] || keyState[SDL_SCANCODE_W]) {
-			speed_y = -15;
+			if (player->y >= HEIGHT - SPRITE_SIZE)
+				speed_y = -15;
+			else {}
 		}
+		if (keyState[SDL_SCANCODE_F11]) {
+			if (SDL_PRESSED) {
+				if (fullscreen == 0) {
+					SDL_SetWindowFullscreen(mainwindow, SDL_WINDOW_FULLSCREEN);
+					fullscreen = 1;
+				}
+				else {
+					SDL_SetWindowFullscreen(mainwindow, 0);
+					fullscreen = 0;
+				}
+			}
+		}
+	}
+
+	void gameGrav() {
+		speed_y += GRAVITY;
+		player->y += speed_y;
+
+		speed_x *= 0.8;
+		player->x += speed_x;
 	}
 
 	// updating the player's state
 	void update() {
-
-		speed_y += GRAVITY;
-		player->y += speed_y;
-
 
 		if (player->x < 0) {
 			player->x = 0;
@@ -116,15 +170,15 @@ public:
 		bool isRunning = true;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_WINDOWEVENT_CLOSE: {
-				isRunning = false;
-			}
-			break;
-			case SDL_QUIT:
-				isRunning = false;
+				case SDL_WINDOWEVENT_CLOSE: {
+					isRunning = false;
+				}
 				break;
+				case SDL_QUIT: {
+					isRunning = false;
+					break;
+				}
 			}
-
 			controls();
 		}
 		
@@ -133,9 +187,12 @@ public:
 
 	// this function will be ran when we quit the program
 	void onQuit() {
+		SDL_Texture* FPSCounter = createFPSText();
 		SDL_DestroyWindow(mainwindow);
+		SDL_DestroyTexture(FPSCounter);
 		SDL_DestroyRenderer(renderer);
-		//SDL_DestroyTexture(player->sprite);
+		SDL_DestroyTexture(player->sprite);
+		TTF_Quit();
 		SDL_Quit();
 	}
 };

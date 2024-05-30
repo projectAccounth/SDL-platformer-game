@@ -15,7 +15,7 @@
 using namespace std;
 using namespace std::chrono;
 using namespace std::this_thread;
-// #include <SDL_ttf.h>
+#include <SDL_ttf.h>
 
 #define WIDTH 640
 #define HEIGHT 480

@@ -7,8 +7,13 @@ int WinMain(int argv, char** argc) {
 
 	cmain.createWindow();
 
+	cmain.createFPSText();
+
+
 	while (isRunning) {
 		isRunning = cmain.processEvent();
+		cmain.renderFPSText();
+		cmain.gameGrav();
 		cmain.update();
 		cmain.renderWindow();
 	}
